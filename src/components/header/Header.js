@@ -1,6 +1,7 @@
 import React from 'react';
 import { AppBar, Toolbar, Button } from '@mui/material';
 import { Link } from 'react-router-dom';
+import CityLogo from '../utils/Tools';
 
 const Header = () => {
   return (
@@ -16,7 +17,12 @@ const Header = () => {
         <Toolbar style={{ display: 'flex' }}>
             <div style={{ flexGrow: 1 }}>
                 <div className="header_logo">
-                    Logo
+                    <CityLogo 
+                        link={true}
+                        linkTo='/'
+                        width='70px'
+                        height='70px'
+                    />
                 </div>
             </div>
 
