@@ -2,8 +2,18 @@ import React from 'react';
 import { AppBar, Toolbar, Button } from '@mui/material';
 import { Link } from 'react-router-dom';
 import CityLogo from '../utils/Tools';
+import { firebase } from '../../firebase';
 
-const Header = () => {
+const Header = ({ user }) => {
+//   console.log('user2', user);
+  const logoutHandler = () => {
+    firebase.auth().signOut()
+        .then(() => {
+            alert('Sign out');
+        }).catch(error => {
+            alert('error');
+        })
+  }
   return (
     <AppBar
         position='fixed'
@@ -32,9 +42,17 @@ const Header = () => {
             <Link to='/the_matches'>
                 <Button color='inherit'>Matches</Button>
             </Link>
-            <Link to='/dashboard'>
-                <Button color='inherit'>Dashboard</Button>
+            {user ? 
+            <>
+                <Link to='/dashboard'>
+                    <Button color='inherit'>Dashboard</Button>
+                </Link>
+                <Button color='inherit' onClick={() => logoutHandler()}>Log out</Button>
+            </> : 
+            <Link to='/sign-in'>
+                <Button color='inherit'>Login in</Button>
             </Link>
+            }
         </Toolbar>
     </AppBar>
   )

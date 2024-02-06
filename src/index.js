@@ -13,10 +13,5 @@ const App = (props) => {
 
 firebase.auth().onAuthStateChanged((user) => {
   const root = ReactDOM.createRoot(document.getElementById('root'));
-  console.log('user', user);
-  root.render(
-    <React.StrictMode>
-      <MyRoutes />
-    </React.StrictMode>
-  );
+  root.render(<App user={user}/>);
 });

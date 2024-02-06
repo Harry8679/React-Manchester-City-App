@@ -5,6 +5,7 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { firebase } from '../../firebase';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 const SignIn = (props) => {
   const [loading, setLoading] = useState(false);
@@ -12,8 +13,8 @@ const SignIn = (props) => {
 
   const formik = useFormik({
     initialValues: {
-        email: '',
-        password: '',
+        email: 'emarhdureal@gmail.com',
+        password: 'Azerty123',
     },
     validationSchema: Yup.object({
         email: Yup.string().email('Invalid email address').required('The email address is required'),
@@ -26,19 +27,17 @@ const SignIn = (props) => {
     }
   });
 
-  const submitForm = (values) => {
-    firebase.auth()
-    .signInWithEmailAndPassword(
-        values.email,
-        values.password
-    ).then(() => {
+  const submitForm = async(values) => {
+    // e.preventDefault();
+    try {
+        firebase.auth().signInWithEmailAndPassword(values.email, values.password);
+        toast('Wow so easy');
         navigate('/dashboard');
-        // props.history.push('/dashboard');
-        // redirect('/dashboard')
-    }).catch(error => {
+    } catch(error) {
         setLoading(false);
-        alert(error);
-    });
+        // alert(error);
+        toast(error);
+    };
   }
   return (
     <div className='container'>
